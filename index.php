@@ -249,5 +249,20 @@
             }
       });
 
+      $(document).on('blur','.change_file_name',function(){
+          let folder_name   = $(this).data('folder_name');
+          let old_file_name = $(this).data('file_name');
+          let new_file_name = $(this).text();
+          let action = "change_file_name";
+          $.ajax({
+              url   :"action.php",
+              method:"POST",
+              data  :{folder_name:folder_name,action:action,new_file_name:new_file_name,old_file_name:old_file_name},
+              success:function(data){
+                  alert(data);
+              }
+          })
+      })
+
   });
 </script>
