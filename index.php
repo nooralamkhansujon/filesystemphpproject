@@ -230,5 +230,24 @@
             }
       });
 
+      $(document).on('click','.delete',function(){
+            let folder_name = $(this).data('name');
+            let action = "delete";
+
+            if(confirm('Are You sure you want to remove it?'))
+            {
+                $.ajax({
+                    url:"action.php",
+                    method:"POST",
+                    data:{folder_name:folder_name,action:action},
+                    success:function(data)
+                    {
+                        load_folder_list();
+                        alert(data);
+                    }
+                })
+            }
+      });
+
   });
 </script>

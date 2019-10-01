@@ -135,10 +135,46 @@ if(isset($_POST['action']))
                     echo "File Deleted";
             }
             else{
-                 rmdir($_POST['path']);
-                 echo "Folder is deleted";
+                    rmdir($_POST['path']);
+                    echo "Folder is deleted";
             }   
         }
+    }
+
+    if($_POST['action'] == 'delete')
+    {
+        if(file_exist($_POST['folder_name']))
+        {
+              $files = scandir($_POST['folder_name']);
+              foreach($files as $file)
+              {
+
+                if($file === '.' || $file === '..')
+                {
+                    continue;
+                }
+                 
+                //if this is directory then remove it 
+                if(is_dir($file))
+                { 
+                    rmdir($_POST['folder_name'].'/'.$file);
+                }
+
+                // if this is file then remove it 
+                else{
+                     
+                    unlink($_POST['folder_name'].'/'.$file);
+                }
+              
+              }
+              if(rmdir($_POST['folder_name']))
+              {
+                  echo "Folder Deleted";
+              }
+
+             
+        }
+         
     }
 }
 ?>
